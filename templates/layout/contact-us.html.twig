@@ -1,0 +1,39 @@
+{% extends '/layout/home.html.twig' %}
+{% block PAGE_TITLE %}
+    <title>Contact Us - Layout Template</title>
+{% endblock %}
+
+
+{% block PAGE_CONTENT %}
+    <div class="container mt-5">
+        <h1>Contact Us</h1>
+        <p>Have questions or feedback? Reach out to us using the contact form or the provided contact details below.</p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Contact Form</h3>
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="3" placeholder="Your Message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form><br>
+            </div>
+            <div class="col-md-6">
+                <h3>Contact Details</h3>
+                <p>Email: contact@example.com</p>
+                <p>Phone: +1 (123) 456-7890</p>
+                <p>Address: 123 Main Street, Cityville</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

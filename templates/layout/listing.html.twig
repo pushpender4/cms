@@ -1,0 +1,98 @@
+{% extends '/layout/home.html.twig' %}
+{% block PAGE_TITLE %}
+	<title>Product Listing - Layout Template</title>
+{% endblock %}
+
+{% block PAGE_CSS %}
+	<style>
+		.product {
+			color: #2d3754;
+			text-decoration: none;
+		}
+	</style>
+{% endblock %}
+
+{% block PAGE_CONTENT %}
+	<div
+		class="row">
+
+		{# Left Column - Product Categories #}
+		<div class="col-lg-3 col-md-3 col-sm-6">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">Product Categories</h4>
+					<br>
+					<ul class="list-group">
+						<li class="list-group-item">
+							<a href="#">Two Wheelers</a>
+						</li>
+						<li class="list-group-item">
+							<a href="#">Electronics</a>
+						</li>
+						<li class="list-group-item">
+							<a href="#">Grocery</a>
+						</li>
+						<li class="list-group-item">
+							<a href="#">Travel</a>
+						</li>
+						<li class="list-group-item">
+							<a href="#">Appliances</a>
+						</li>
+						<li class="list-group-item">
+							<a href="#">Home & Furniture</a>
+						</li>
+						<li class="list-group-item">
+							<a href="#">Fashion</a>
+						</li>
+						<li class="list-group-item">
+							<a href="#">Grocery</a>
+						</li>
+						<li class="list-group-item">
+							<a href="#">Books</a>
+						</li>
+						<!-- Add more categories as needed -->
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		{# Right Column - Product Details #}
+
+		<div class="col-lg-9 col-md-9 col-sm-6">
+			{% for i in pimcore_block('contentblock').iterator %}
+				{# Product Card #}
+
+				<div class="card">
+					<a class="product" href="/detail">
+						<div class="card-body">
+
+							<div class="row">
+								<div class="col-lg-5 col-md-5 col-sm-6">
+									<div class="product-image-container text-center">
+										{{ pimcore_image("myImage", {"thumbnail": "listing"}) }}
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-6">
+									<h2 class="card-title product-title">{{ pimcore_input("productName") }}</h2>
+									<p class="product-description">
+										{{ pimcore_wysiwyg('content') }}
+									</p>
+								</div>
+
+								<div class="col-lg-3 col-md-3 col-sm-6">
+									<h2 style="font-size: 24px; color: #333; margin-bottom: 10px;">Price :
+										<u style="color:green;">₹{{ pimcore_numeric("price") }}</u>
+									</h2>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				{# End of Product Card #}
+			{% endfor %}
+		</div>
+
+	</div>
+
+{% endblock %}

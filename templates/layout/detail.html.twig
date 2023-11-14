@@ -1,0 +1,92 @@
+{% extends '/layout/home.html.twig' %}
+{% block PAGE_TITLE %}
+	<title>Product Detail - Layout Template</title>
+{% endblock %}
+
+
+{% block PAGE_CSS %}
+	<style>
+		button {
+			margin: 10px !important;
+		}
+	</style>
+{% endblock %}
+
+
+{% block PAGE_CONTENT %}
+	{# card 1 #}
+	<div class="card">
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-lg-5 col-md-5 col-sm-6">
+					<div class="product-image-container text-center">
+						{{ pimcore_image("myImage", {"thumbnail": "detail"}) }}
+
+						<div class="button-container mt-3">
+							<button class="btn btn-primary btn-lg mr-2">Buy Now</button>
+							<button class="btn btn-success btn-lg">Add to Cart</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-7 col-md-7 col-sm-6">
+					<h2 class="card-title product-title">{{ pimcore_input("productName") }}</h2>
+					<p class="ratings-reviews">
+						<span class="ratings">4.3 &#11088;</span>
+						<span class="separator">&nbsp;</span>
+						<span class="num-ratings">31,196 Ratings</span>
+						<span class="separator">&nbsp;&amp;&nbsp;</span>
+						<span class="num-reviews">76,863 Reviews</span>
+					</p>
+					<p class="product-description">
+						{{ pimcore_wysiwyg('content') }}
+					</p>
+					<h2 style="font-size: 24px; color: #333; margin-bottom: 10px;">Price :
+						<u style="color:green;">₹{{ pimcore_numeric("price") }}</u>
+					</h2>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	{# card 2 #}
+	<div class="card">
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-lg-5 col-md-5 col-sm-6">
+					<div class="product-image-container text-center">
+						{{ pimcore_image("myImage1", {"thumbnail": "detail"}) }}
+
+						<div class="button-container mt-3">
+							<button class="btn btn-primary btn-lg mr-2">Buy Now</button>
+							<button class="btn btn-success btn-lg">Add to Cart</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-7 col-md-7 col-sm-6">
+					<h2 class="card-title product-title">{{ pimcore_input("productName1") }}</h2>
+					<p class="ratings-reviews">
+						<span class="ratings">4.1 &#11088;</span>
+						<span class="separator">&nbsp;</span>
+						<span class="num-ratings">11,196 Ratings</span>
+						<span class="separator">&nbsp;&amp;&nbsp;</span>
+						<span class="num-reviews">46,863 Reviews</span>
+					</p>
+					<p class="product-description">
+						{{ pimcore_wysiwyg('content1') }}
+					</p>
+					<h2 style="font-size: 24px; color: #333; margin-bottom: 10px;">Price :
+						<u style="color:green;">₹{{ pimcore_numeric("price1") }}</u>
+					</h2>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+pimcore:
+  workflows:
+    hii:
+        label: 'Product workflow'
+        type: 'state_machine'
+        supports:
+        - 'Pimcore\Model\DataObject\Product'
+        places:
+          new:
+            label: 'new product'
+            color: '#FFFF00'
+            permissions:
+              - objectLayout: '1'
+          updated_content:
+            label: 'updated product'
+            title: 'This is update product'
+            color: '#FFFFE0'
+            permissions:
+              - objectLayout: '2'
+          content_prepared:
+            label: 'content product'
+            title: 'This is content product'
+            color: '#FFFACD'
+            permissions:
+              - objectLayout: '3'
+          rejected:
+            label: 'rejected'
+            title: 'not allowed'
+          accepted:
+            label: 'Accept the product'
+            color: '#28a013'
+        transitions:
+          content_update:
+            from: new
+            to: updated_content
+            options:
+              label: 'update'
+              notes:
+                commentEnabled: true
+                commentRequired: false
+          reect_product:
+            from: [new,content_prepared]
+            to: rejected
+            options:
+              label: 'transition2'
+              notes:
+                commentEnabled: true
+                commentRequired: true
+          publish:
+            from: content_prepared
+            to: accepted
+            guard: "is_fully_authenticated() and is_granted('ROLE_PIMCORE_ADMIN')"
+            options:
+              label: 'publish the product'
+              notes:
+                commentEnabled: true
+                commentRequired: False

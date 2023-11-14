@@ -1,0 +1,87 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+
+{# 1. Input #}
+<h1>Input <h1>
+<h2>{{ pimcore_input("headline").render()|raw }}</h2>
+
+
+{# 2. checkbox #}
+<h1>Checkbox<h1>
+{{ pimcore_checkbox('myCheckbox') }}
+
+
+{# 3. Select  #}
+<h1>Select<h1>
+{% if editmode %}
+    {{ pimcore_select("valid_for", {
+            "store": [
+                ["one-month", "One month"],
+                ["three-months", "Three months"],
+                ["unlimited", "Unlimited"]
+            ],
+            "defaultValue" : "unlimited"
+        }) }}
+{% else %}
+    <p>
+        {{ "Something is valid for" | trans }}:{{ pimcore_select("valid_for").getData() | trans  }}
+    </p>
+{% endif %}
+
+{# 4. Numeric  #}
+<h1>Numeric </h1>
+{{ pimcore_numeric('myNumber') }}
+
+{# 5. Snippet #}
+<h1> Snippet </h1>
+{{ pimcore_snippet("mySnippet", {cache: true},{"width": 250, "height": 100, "color":"red"}) }}
+
+{# 6. Areablock #}
+<h1>AreaBlock</h1>
+{{ pimcore_areablock("myAreablock", {
+        "allowed": ["iframe","teasers","wysiwyg"],
+        "limits": {
+            "iframe": 1,
+            "teasers": 2
+        },
+        "limit": 5
+    })
+}}
+
+{# 7. Textarea  #}
+<h1>Textarea</h1>
+<p class="product-description">
+    {{ pimcore_textarea("product_description",{
+        "nl2br": true,
+        "height": 100,
+        "placeholder": "Product Description"
+    }) }}
+</p>
+
+{# 8. block  #}
+<h1>Block</h1>
+{% for i in pimcore_block('contentblock').iterator %}
+    <h2>{{ pimcore_input('subline') }}</h2>
+    {{ pimcore_wysiwyg('content') }}
+{% endfor %}
+
+{# 9. Date  #}
+<h1>Date</h1>
+{{ pimcore_date('myDate', {
+    'format': 'd.m.Y',
+    'outputFormat': '%d.%m.%Y'
+    })
+}}
+
+
+{# 10. Image  #}
+<h1>Image<h1>
+{{ pimcore_image("myImage", {
+    "title": "Drag your image here",
+    "width": 150,
+    "height": 150,
+    "thumbnail": "contentimages"
+}) }}
+
+
+{% endblock %} 

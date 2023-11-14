@@ -1,0 +1,113 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<link rel="stylesheet" href="{{ asset('css/product.css') }}">
+	<div class="product-info">
+		{% if editmode %}
+			{{ pimcore_relation("product") }}
+
+			{# 1. numberic editables  #}
+			<p style="color:blue" ;>
+				How many images do you want to show for a particular product:
+				{{ pimcore_numeric('myNumber') }}
+			</p>
+
+			{# 2. input editable			 #}
+			Add text for Headline:
+			<h2 style="color:red" ;>
+				{{ pimcore_input("headerLine", {'width': 840}) }}
+			</h2>
+
+
+			{# 3. multi-select editable : #}
+			{% if editmode %}
+				{{ pimcore_multiselect('categories', {
+        'width': 200,
+        'height': 100,
+        'store': [
+            ['cars', 'Cars'],
+            ['motorcycles', 'Motorcycles'],
+            ['accessories', 'Accessories'],
+        ]
+    }) }}
+			{% else %}
+				<p>{{ 'This page is linked to' | trans }}
+					{% for categoryKey in pimcore_multiselect('categories').getData %}
+						<span>
+							{{ categoryKey | trans }}
+						</span>
+					{% endfor %}
+					categories
+				</p>
+			{% endif %}
+
+			{# 4. block editable:  #}
+			{% for i in pimcore_block('contentblock').iterator %}
+				<h2>{{ pimcore_input('subline') }}</h2>
+				{{ pimcore_wysiwyg('content') }}
+			{% endfor %}
+
+		{% else %}
+			{% set product = pimcore_relation("product").element %}
+		{% endif %}
+	</div>
+	<br>
+
+
+	{# displaying  editables in preview #}
+	{% if product is defined %}
+		<div class="content">
+			<h1 class="title">
+				Product Name:
+				{{ product.name }}
+			</h1>
+			<br>
+			<br>
+			<br>
+			<h2 style="margin-top:-50px">SKU:
+				{{ product.sku }}
+			</h2>
+			<h2 style="font-weight:20px">Product Picture:</h2>
+			{% if product.picture %}
+				{{ product.picture.thumbnail("content").html|raw }}
+			{% endif %}
+			<p id="des">
+				{{ product.description|raw }}
+			</p>
+			<p>
+				Number of images of a particular product:
+				{{ pimcore_numeric('myNumber') }}
+			</p>
+			<h2>
+				Added text for Headline:
+				{{ pimcore_input("headerLine") }}
+			</h2>
+
+			{% if editmode %}
+				{{ pimcore_multiselect('categories', {
+        'width': 200,
+        'height': 100,
+        'store': [
+            ['cars', 'Cars'],
+            ['motorcycles', 'Motorcycles'],
+            ['accessories', 'Accessories'],
+        ]
+    }) }}
+			{% else %}
+				<p>{{ 'This page is linked to' | trans }}
+					{% for categoryKey in pimcore_multiselect('categories').getData %}
+						<span>
+							{{ categoryKey | trans }}
+						</span>
+					{% endfor %}
+					categories
+				</p>
+			{% endif %}
+
+			{% for i in pimcore_block('contentblock').iterator %}
+				<h2>{{ pimcore_input('subline') }}</h2>
+				{{ pimcore_wysiwyg('content') }}
+			{% endfor %}
+		</div>
+	{% endif %}
+{% endblock %}
